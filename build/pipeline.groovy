@@ -139,6 +139,15 @@ String resolveServerEnv(String repoChannel, String sovrinVersion=null) {
             'indy-plenum', 'python3-indy-crypto', res.indyPlenum.ver
         )
 
+        echo "res.sovrin.ver=${res.sovrin.ver}"
+        echo "res.sovtoken.ver=${res.sovtoken.ver}"
+        echo "res.sovtokenfees.ver=${res.sovtokenfees.ver}"
+        echo "res.indyNode.ver=${res.indyNode.ver}"
+        echo "res.indyPlenum.ver=${res.indyPlenum.ver}"
+        echo "res.libindyCrypto.ver=${res.libindyCrypto.ver}"
+
+        echo "apt-get install -y sovrin=${res.sovrin.ver} sovtoken=${res.sovtoken.ver} sovtokenfees=${res.sovtokenfees.ver} indy-node=${res.indyNode.ver} indy-plenum=${res.indyPlenum.ver} python3-indy-crypto=${res.libindyCrypto.ver}"
+
         sh """
             apt-get install -y \
                 sovrin=${res.sovrin.ver} \
