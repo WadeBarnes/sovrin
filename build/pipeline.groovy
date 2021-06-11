@@ -136,7 +136,7 @@ String resolveServerEnv(String repoChannel, String sovrinVersion=null) {
             'indy-node', 'indy-plenum', res.indyNode.ver
         )
         res.libindyCrypto.ver = getPinnedDebianDependencyVersion(
-            'indy-plenum', 'python3-indy-crypto', res.indyPlenum.ver
+            'indy-plenum', 'python3-ursa', res.indyPlenum.ver
         )
 
         echo "res.sovrin.ver=${res.sovrin.ver}"
@@ -146,8 +146,6 @@ String resolveServerEnv(String repoChannel, String sovrinVersion=null) {
         echo "res.indyPlenum.ver=${res.indyPlenum.ver}"
         echo "res.libindyCrypto.ver=${res.libindyCrypto.ver}"
 
-        echo "apt-get install -y sovrin=${res.sovrin.ver} sovtoken=${res.sovtoken.ver} sovtokenfees=${res.sovtokenfees.ver} indy-node=${res.indyNode.ver} indy-plenum=${res.indyPlenum.ver} python3-indy-crypto=${res.libindyCrypto.ver}"
-
         sh """
             apt-get install -y \
                 sovrin=${res.sovrin.ver} \
@@ -155,7 +153,7 @@ String resolveServerEnv(String repoChannel, String sovrinVersion=null) {
                 sovtokenfees=${res.sovtokenfees.ver} \
                 indy-node=${res.indyNode.ver} \
                 indy-plenum=${res.indyPlenum.ver} \
-                python3-indy-crypto=${res.libindyCrypto.ver}
+                python3-ursa=${res.libindyCrypto.ver}
         """
 
         res.sovrin.manifest = pkgManifestData('sovrin').tokenize('\n')[1].tokenize()
