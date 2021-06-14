@@ -57,7 +57,7 @@ def systemTests = { component, releaseVersion ->
         sovtokenVer = serverEnv.sovtoken.ver
         indyNodeVer = serverEnv.indyNode.ver
         indyPlenumVer = serverEnv.indyPlenum.ver
-        libindyCryptoVer = serverEnv.libindyCrypto.ver
+        ursaVer = serverEnv.ursa.ver
         libsovtokenVer = clientEnv.libsovtoken.ver
         libindyVer = clientEnv.libindy.ver
         libindyPypiVer = clientEnv.libindy.pypi
@@ -85,6 +85,9 @@ def systemTests = { component, releaseVersion ->
             ['TestAdHocSuite.py'],
             ['TestProductionSuite.py']
         ]
+
+        // Define the version of hyperledger/indy-test-automation to use
+        //  - https://github.com/hyperledger/indy-test-automation/releases
         testVersion = 'v0.8.44'
         testVersionByTag = true
         delegate.gatherLogs = gatherLogs

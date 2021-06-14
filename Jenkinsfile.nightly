@@ -47,7 +47,7 @@ try {
         sovtokenVer = serverEnv.sovtoken.ver
         indyNodeVer = serverEnv.indyNode.ver
         indyPlenumVer = serverEnv.indyPlenum.ver
-        libindyCryptoVer = serverEnv.libindyCrypto.ver
+        ursaVer = serverEnv.ursa.ver
         libsovtokenVer = clientEnv.libsovtoken.ver
         libindyVer = clientEnv.libindy.ver
         libindyPypiVer = clientEnv.libindy.pypi
@@ -75,6 +75,9 @@ try {
             ['TestAdHocSuite.py'],
             ['TestProductionSuite.py']
         ]
+
+        // Define the version of hyperledger/indy-test-automation to use
+        //  - https://github.com/hyperledger/indy-test-automation/releases
         testVersion = 'v0.8.44'
         testVersionByTag = true
         delegate.gatherLogs = gatherLogs
@@ -106,7 +109,7 @@ try {
                 |       sovtokenfees: ${serverEnv.sovtokenfees}
                 |       indy-node: ${serverEnv.indyNode}
                 |       indy-plenum: ${serverEnv.indyPlenum}
-                |       libindy-crypto: ${serverEnv.libindyCrypto}
+                |       ursa: ${serverEnv.ursa}
                 |   Client:
                 |       channel: ${clientRepoChannel}
                 |       libsovtoken: ${clientEnv.libsovtoken}

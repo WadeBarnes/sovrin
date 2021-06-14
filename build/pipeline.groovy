@@ -101,7 +101,7 @@ String resolveServerEnv(String repoChannel, String sovrinVersion=null) {
         sovtoken: [:],
         indyNode: [:],
         indyPlenum: [:],
-        libindyCrypto: [:]
+        ursa: [:]
     ]
 
     docker.image('hyperledger/indy-core-baseci:0.0.3-master').inside('-u 0') {
@@ -135,7 +135,7 @@ String resolveServerEnv(String repoChannel, String sovrinVersion=null) {
         res.indyPlenum.ver = getPinnedDebianDependencyVersion(
             'indy-node', 'indy-plenum', res.indyNode.ver
         )
-        res.libindyCrypto.ver = getPinnedDebianDependencyVersion(
+        res.ursa.ver = getPinnedDebianDependencyVersion(
             'indy-plenum', 'python3-ursa', res.indyPlenum.ver
         )
 
@@ -144,7 +144,7 @@ String resolveServerEnv(String repoChannel, String sovrinVersion=null) {
         echo "res.sovtokenfees.ver=${res.sovtokenfees.ver}"
         echo "res.indyNode.ver=${res.indyNode.ver}"
         echo "res.indyPlenum.ver=${res.indyPlenum.ver}"
-        echo "res.libindyCrypto.ver=${res.libindyCrypto.ver}"
+        echo "res.ursa.ver=${res.ursa.ver}"
 
         sh """
             apt-get install -y \
@@ -153,7 +153,7 @@ String resolveServerEnv(String repoChannel, String sovrinVersion=null) {
                 sovtokenfees=${res.sovtokenfees.ver} \
                 indy-node=${res.indyNode.ver} \
                 indy-plenum=${res.indyPlenum.ver} \
-                python3-ursa=${res.libindyCrypto.ver}
+                python3-ursa=${res.ursa.ver}
         """
 
         res.sovrin.manifest = pkgManifestData('sovrin').tokenize('\n')[1].tokenize()
@@ -216,7 +216,7 @@ def systemTests(Closure body) {
             sovtokenVer: null,
             indyNodeVer: null,
             indyPlenumVer: null,
-            libindyCryptoVer: null,
+            ursaVer: null,
             libsovtokenVer: null,
             libindyVer: null,
             libindyPypiVer: null,
@@ -232,7 +232,7 @@ def systemTests(Closure body) {
             'sovtokenVer',
             'indyNodeVer',
             'indyPlenumVer',
-            'libindyCryptoVer',
+            'ursaVer',
             'libsovtokenVer',
             'libindyVer',
             'libindyPypiVer',
@@ -298,8 +298,7 @@ def systemTests(Closure body) {
                 String repoComponents = (config.repoChannel == 'rc' ? 'rc stable' : config.repoChannel)
                 List envVars = [
                     "INDY_NODE_REPO_COMPONENT=${repoComponents}",
-                    "LIBINDY_CRYPTO_VERSION=${config.libindyCryptoVer}",
-                    "PYTHON3_LIBINDY_CRYPTO_VERSION=${config.libindyCryptoVer}",
+                    "URSA_VERSION=${config.ursaVer}",
                     "INDY_PLENUM_VERSION=${config.indyPlenumVer}",
                     "INDY_NODE_VERSION=${config.indyNodeVer}",
                     "TOKEN_PLUGINS_INSTALL=yes",
