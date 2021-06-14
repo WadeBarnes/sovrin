@@ -309,8 +309,9 @@ def systemTests(Closure body) {
                     "LIBINDY_VERSION=${config.libindyVer}",
                     "LIBSOVTOKEN_INSTALL=yes",
                     "LIBSOVTOKEN_VERSION=${config.libsovtokenVer}",
-                    // ToDo - Make this variable
-                    "CLIENT_REPO_COMPONENT=master"
+                    // ToDo - Make these variable
+                    "CLIENT_REPO_COMPONENT=master",
+                    "NODE_REPO_COMPONENT=master"
                 ]
 
                 echo "[${testGroup}]: env variables: $envVars"
