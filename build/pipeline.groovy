@@ -102,7 +102,7 @@ String resolveServerEnv(String repoChannel, String sovrinVersion=null) {
         indyNode: [:],
         indyPlenum: [:],
         ursa: [:],
-        pyzmqVer: [:]
+        pyzmq: [:]
     ]
 
     docker.image('hyperledger/indy-core-baseci:0.0.3-master').inside('-u 0') {
@@ -139,7 +139,7 @@ String resolveServerEnv(String repoChannel, String sovrinVersion=null) {
         res.ursa.ver = getPinnedDebianDependencyVersion(
             'indy-plenum', 'python3-ursa', res.indyPlenum.ver
         )
-        res.pyzmqVer.ver = getPinnedDebianDependencyVersion(
+        res.pyzmq.ver = getPinnedDebianDependencyVersion(
             'indy-plenum', 'python3-pyzmq', res.indyPlenum.ver
         )
 
@@ -149,7 +149,7 @@ String resolveServerEnv(String repoChannel, String sovrinVersion=null) {
         echo "res.indyNode.ver=${res.indyNode.ver}"
         echo "res.indyPlenum.ver=${res.indyPlenum.ver}"
         echo "res.ursa.ver=${res.ursa.ver}"
-        echo "res.pyzmqVer.ver=${res.pyzmqVer.ver}"
+        echo "res.pyzmq.ver=${res.pyzmq.ver}"
 
         sh """
             apt-get install -y \
@@ -159,7 +159,7 @@ String resolveServerEnv(String repoChannel, String sovrinVersion=null) {
                 indy-node=${res.indyNode.ver} \
                 indy-plenum=${res.indyPlenum.ver} \
                 python3-ursa=${res.ursa.ver} \
-                python3-pyzmq=${res.pyzmqVer.ver} \
+                python3-pyzmq=${res.pyzmq.ver}
         """
 
         res.sovrin.manifest = pkgManifestData('sovrin').tokenize('\n')[1].tokenize()
