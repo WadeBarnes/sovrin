@@ -155,6 +155,17 @@ String resolveServerEnv(String repoChannel, String sovrinVersion=null) {
         echo "res.ursa.ver=${res.ursa.ver}"
         echo "res.pyzmq.ver=${res.pyzmq.ver}"
 
+        // sh """
+        //     apt-get install -y \
+        //         sovrin=${res.sovrin.ver} \
+        //         sovtoken=${res.sovtoken.ver} \
+        //         sovtokenfees=${res.sovtokenfees.ver} \
+        //         indy-node=${res.indyNode.ver} \
+        //         indy-plenum=${res.indyPlenum.ver} \
+        //         python3-ursa=${res.ursa.ver} \
+        //         python3-pyzmq=${res.pyzmq.ver}
+        // """
+
         sh """
             apt-get install -y \
                 sovrin=${res.sovrin.ver} \
@@ -162,7 +173,6 @@ String resolveServerEnv(String repoChannel, String sovrinVersion=null) {
                 sovtokenfees=${res.sovtokenfees.ver} \
                 indy-node=${res.indyNode.ver} \
                 indy-plenum=${res.indyPlenum.ver} \
-                python3-ursa=${res.ursa.ver} \
                 python3-pyzmq=${res.pyzmq.ver}
         """
 
