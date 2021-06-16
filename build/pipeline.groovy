@@ -136,9 +136,13 @@ String resolveServerEnv(String repoChannel, String sovrinVersion=null) {
         res.indyPlenum.ver = getPinnedDebianDependencyVersion(
             'indy-node', 'indy-plenum', res.indyNode.ver
         )
-        res.ursa.ver = getPinnedDebianDependencyVersion(
-            'indy-plenum', 'python3-ursa', res.indyPlenum.ver
-        )
+
+        // The version of Ursa in this container is too old.
+        // res.ursa.ver = getPinnedDebianDependencyVersion(
+        //     'indy-plenum', 'python3-ursa', res.indyPlenum.ver
+        // )
+        res.ursa.ver = "0.3.2-2"
+        
         res.pyzmq.ver = getPinnedDebianDependencyVersion(
             'indy-plenum', 'python3-pyzmq', res.indyPlenum.ver
         )
