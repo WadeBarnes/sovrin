@@ -101,7 +101,8 @@ String resolveServerEnv(String repoChannel, String sovrinVersion=null) {
         sovtoken: [:],
         indyNode: [:],
         indyPlenum: [:],
-        ursa: [:]
+        ursa: [:],
+        pyzmqVer: [:]
     ]
 
     docker.image('hyperledger/indy-core-baseci:0.0.3-master').inside('-u 0') {
@@ -138,6 +139,9 @@ String resolveServerEnv(String repoChannel, String sovrinVersion=null) {
         res.ursa.ver = getPinnedDebianDependencyVersion(
             'indy-plenum', 'python3-ursa', res.indyPlenum.ver
         )
+        res.pyzmqVer.ver = getPinnedDebianDependencyVersion(
+            'indy-plenum', 'python3-pyzmq', res.indyPlenum.ver
+        )
 
         echo "res.sovrin.ver=${res.sovrin.ver}"
         echo "res.sovtoken.ver=${res.sovtoken.ver}"
@@ -145,6 +149,7 @@ String resolveServerEnv(String repoChannel, String sovrinVersion=null) {
         echo "res.indyNode.ver=${res.indyNode.ver}"
         echo "res.indyPlenum.ver=${res.indyPlenum.ver}"
         echo "res.ursa.ver=${res.ursa.ver}"
+        echo "res.pyzmqVer.ver=${res.pyzmqVer.ver}"
 
         sh """
             apt-get install -y \
@@ -153,7 +158,8 @@ String resolveServerEnv(String repoChannel, String sovrinVersion=null) {
                 sovtokenfees=${res.sovtokenfees.ver} \
                 indy-node=${res.indyNode.ver} \
                 indy-plenum=${res.indyPlenum.ver} \
-                python3-ursa=${res.ursa.ver}
+                python3-ursa=${res.ursa.ver} \
+                python3-pyzmq=${res.pyzmqVer.ver} \
         """
 
         res.sovrin.manifest = pkgManifestData('sovrin').tokenize('\n')[1].tokenize()
@@ -217,6 +223,7 @@ def systemTests(Closure body) {
             indyNodeVer: null,
             indyPlenumVer: null,
             ursaVer: null,
+            pyzmqVer: null,
             libsovtokenVer: null,
             libindyVer: null,
             libindyPypiVer: null,
@@ -233,6 +240,7 @@ def systemTests(Closure body) {
             'indyNodeVer',
             'indyPlenumVer',
             'ursaVer',
+            'pyzmqVer',
             'libsovtokenVer',
             'libindyVer',
             'libindyPypiVer',
@@ -299,6 +307,7 @@ def systemTests(Closure body) {
                 List envVars = [
                     "INDY_NODE_REPO_COMPONENT=${repoComponents}",
                     "URSA_VERSION=${config.ursaVer}",
+                    "PYTHON3_PYZMQ_VERSION=${config.pyzmqVer}",
                     "INDY_PLENUM_VERSION=${config.indyPlenumVer}",
                     "INDY_NODE_VERSION=${config.indyNodeVer}",
                     "TOKEN_PLUGINS_INSTALL=yes",

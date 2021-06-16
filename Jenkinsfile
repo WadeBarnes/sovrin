@@ -58,6 +58,7 @@ def systemTests = { component, releaseVersion ->
         indyNodeVer = serverEnv.indyNode.ver
         indyPlenumVer = serverEnv.indyPlenum.ver
         ursaVer = serverEnv.ursa.ver
+        pyzmqVer = serverEnv.pyzmq.ver
         libsovtokenVer = clientEnv.libsovtoken.ver
         libindyVer = clientEnv.libindy.ver
         libindyPypiVer = clientEnv.libindy.pypi
