@@ -88,7 +88,7 @@ def systemTests = { component, releaseVersion ->
 
         // Define the version of hyperledger/indy-test-automation to use
         //  - https://github.com/hyperledger/indy-test-automation/releases
-        testVersion = 'v0.8.45'
+        testVersion = 'v0.8.46'
         testVersionByTag = true
         delegate.gatherLogs = gatherLogs
     }
