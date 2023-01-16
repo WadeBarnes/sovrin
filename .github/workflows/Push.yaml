@@ -7,6 +7,7 @@ on:
       - DevContainers
     paths:
       - 'sovrin/*_genesis'
+      - '.github/**'
       - '**.py'
 
 jobs:
@@ -15,6 +16,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       testsNeeded: ${{ steps.testsNeeded.outputs.testsNeeded }}
+      publish: ${{ steps.setup.outputs.publish}}
     steps:
       - name: checkout source code
         uses: actions/checkout@v3
@@ -31,6 +33,7 @@ jobs:
             testsNeeded:
               - '**.py'
               - 'sovrin/*genesis'
+              - '.github/**'
               
   extract-information:
     name: Extract needed Information for Indy-Test-Automation
@@ -89,7 +92,7 @@ jobs:
       indyJSON: "{ \"nodeVersion\": \"${{ needs.extract-information.outputs.indyVersion }}\", \"plenumVersion\" : \"1.13.1~rc2\", \"ursaVersion\": \"0.3.2-1\", \"pyzmqVersion\" : \"22.3.0\"}"
       libIndyVersion: "1.15.0~1625-bionic"
       includePaymentTests: true
-      testAutomationBranch: "sovrin"
+      testAutomationBranch: "v0.9"
 
   publish-package:
     name: Sovrin Publish Packages

@@ -4,10 +4,10 @@ on:
   pull_request:
     paths:
       - '**'
+      - '.github/**'
       - "!sovrin/metadata.json"
     branches:
       - master
-      - DevContainers
 
 jobs:
   workflow-setup:
@@ -34,6 +34,7 @@ jobs:
             testsNeeded:
               - '**.py'
               - 'sovrin/*genesis'
+              - '.github/**'
   extract-information:
     name: Extract needed Information for Indy-Test-Automation
     needs: [workflow-setup]
@@ -90,7 +91,7 @@ jobs:
       indyJSON: "{ \"nodeVersion\": \"${{ needs.extract-information.outputs.indyVersion }}\", \"plenumVersion\" : \"1.13.1~rc2\", \"ursaVersion\": \"0.3.2-1\", \"pyzmqVersion\" : \"22.3.0\"}"
       libIndyVersion: "1.15.0~1625-bionic"
       includePaymentTests: true
-      testAutomationBranch: "sovrin"
+      testAutomationBranch: "v0.9"
   
   statusCheck:
     name: statusCheck
